@@ -1,10 +1,6 @@
 ﻿using Acme.Common;
-using static Acme.Common.LoggingService;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Acme.Biz
 {
@@ -16,27 +12,20 @@ namespace Acme.Biz
         #region Constructors
         public Product()
         {
-            //var colorOptions = new string[4];
-            //colorOptions[0] = "Red";
-            //colorOptions[1] = "Expresso";
-            //colorOptions[2] = "White";
-            //colorOptions[3] = "Navy";
 
-            string[] colorOptions = {"Red", "Expresso", "White", "Navy" };
+            //var colorOptions = new List<string>();
+            //colorOptions.Add("Red");
+            //colorOptions.Add("Expresso");
+            //colorOptions.Add("White");
+            //colorOptions.Add("Navy");
 
-            var brownIndex = Array.IndexOf(colorOptions, "Expresso");
+            //colorOptions.Insert(2, "Purple");
 
-            colorOptions.SetValue("Blue", 3);
+            //colorOptions.Remove("White");
 
-            for (int i = 0; i < colorOptions.Length; i++)
-            {
-                colorOptions[i] = colorOptions[i].ToLower();
-            }
+            var colorOptions = new List<string> { "Red", "Expresso", "White", "Navy" };
 
-            foreach (var color in colorOptions)
-            {
-                Console.WriteLine("The color is {0}", color);
-            }
+            Console.WriteLine(colorOptions);
             
 
         }
