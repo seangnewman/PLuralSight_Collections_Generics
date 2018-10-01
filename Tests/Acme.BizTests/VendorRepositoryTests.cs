@@ -61,7 +61,7 @@ namespace Acme.Biz.Tests
             var repository = new VendorRepository();
             var expected = new List<Vendor>();
             expected.Add(new Vendor()
-            { VendorId = 1, CompanyName = "ABC Corp", Email="abc@abc.com"});
+            { VendorId = 1, CompanyName = "ABC Corp", Email = "abc@abc.com" });
             expected.Add(new Vendor()
             { VendorId = 2, CompanyName = "XYZ Corp", Email = "xyz@xyz.com" });
 
@@ -72,6 +72,24 @@ namespace Acme.Biz.Tests
             // Assert
             CollectionAssert.AreEqual(expected, actual);
 
+        }
+
+        [TestMethod()]
+        public void RetrieveWithKeysTest()
+        {
+            // Arrange
+            var repository = new VendorRepository();
+            var expected = new Dictionary<string, Vendor>()
+            {
+                {"ABC Corp", new Vendor(){VendorId = 5, CompanyName="ABC Corp", Email="abc@abc.com"} },
+                {"XYZ Inc", new Vendor(){VendorId = 8, CompanyName="XYZ Inc", Email="xyz@xyz.com"} }
+            };
+
+            // Actual
+            var actual = repository.RetrieveWithKeys();
+
+            // Assert
+            CollectionAssert.AreEqual(expected, actual);
         }
     }
 }
