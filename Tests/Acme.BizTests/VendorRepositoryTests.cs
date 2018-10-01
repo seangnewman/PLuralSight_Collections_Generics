@@ -1,10 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Acme.Biz;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Acme.Biz.Tests
 {
@@ -96,6 +93,46 @@ namespace Acme.Biz.Tests
 
             // Assert
             CollectionAssert.AreEqual(expected, actual);
-         }
+        }
+
+        [TestMethod()]
+        public void RetrieveAllTest()
+        {
+            // Arrange
+            var repository = new VendorRepository();
+            var expected = new List<Vendor>()
+            {
+                 {new Vendor() { VendorId = 22, CompanyName = "Amalgamated Toys", Email = "support@amalgamated.com" } },
+                 {new Vendor() { VendorId = 35, CompanyName = "Car Toys", Email = "cars@toys.com" } },
+                 { new Vendor() { VendorId = 28, CompanyName = "Toy Blocks Inc", Email = "blocks@toyblocks.com" } },
+                 {new Vendor() { VendorId = 42, CompanyName = "Toys for Fun", Email = "contact@toysforfun.com" } }
+
+            };
+
+            // Act
+            var vendors = repository.RetrieveAll();
+
+            //var vendorQuery = from v in vendors
+            //                  where v.CompanyName.Contains("Toy")
+            //                  orderby v.CompanyName
+            //                  select v;
+
+            //var vendorQuery = vendors.Where(FilterCompanies)
+            //                           .OrderBy(OrderCompaniesByName);
+
+            var vendorQuery = vendors.Where(v => v.CompanyName.Contains("Toy"))
+                                     .OrderBy(v => v.CompanyName);
+
+            // Assert
+            CollectionAssert.AreEqual(expected, vendorQuery.ToList());
+        }
+
+        // Linq functions
+        // Where Extension
+        //private bool FilterCompanies(Vendor v) => v.CompanyName.Contains("Toy");
+        // Order Extension
+        //private string OrderCompaniesByName(Vendor v) =>  v.CompanyName;
+       
+
     }
 }
