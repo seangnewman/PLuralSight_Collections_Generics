@@ -63,33 +63,39 @@ namespace Acme.Biz.Tests
             expected.Add(new Vendor()
             { VendorId = 1, CompanyName = "ABC Corp", Email = "abc@abc.com" });
             expected.Add(new Vendor()
-            { VendorId = 2, CompanyName = "XYZ Corp", Email = "xyz@xyz.com" });
+            { VendorId = 2, CompanyName = "XYZ Inc", Email = "xyz@xyz.com" });
 
 
             // Act
             var actual = repository.Retrieve();
 
             // Assert
-            CollectionAssert.AreEqual(expected, actual);
+            CollectionAssert.AreEqual(expected, actual.ToList());
 
         }
 
         [TestMethod()]
-        public void RetrieveWithKeysTest()
+        public void RetrieveWithIteratorTest()
         {
             // Arrange
             var repository = new VendorRepository();
-            var expected = new Dictionary<string, Vendor>()
+            var expected = new List<Vendor>()
             {
-                {"ABC Corp", new Vendor(){VendorId = 5, CompanyName="ABC Corp", Email="abc@abc.com"} },
-                {"XYZ Inc", new Vendor(){VendorId = 8, CompanyName="XYZ Inc", Email="xyz@xyz.com"} }
+                {new Vendor() {VendorId = 1, CompanyName="ABC Corp", Email="abc@abc.com"} },
+                { new Vendor() { VendorId = 2, CompanyName = "XYZ Inc", Email = "xyz@xyz.com" } }
+
             };
 
-            // Actual
-            var actual = repository.RetrieveWithKeys();
+            // Act
+            var vendorIterator = repository.RetrieveWithIterator();
+            foreach (var item in vendorIterator)
+            {
+                Console.WriteLine(item);
+            }
+            var actual = vendorIterator.ToList();
 
             // Assert
             CollectionAssert.AreEqual(expected, actual);
-        }
+         }
     }
 }
